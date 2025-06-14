@@ -39,14 +39,17 @@ float AMyActor::distance(FVector2D first, FVector2D second)
 void AMyActor::move()
 {
 	for (int32 i = 0; i < 10; i++) {
+		FVector2D preposition = position;
 		int32 x = step();
 		int32 y = step();
-		FVector2D a = position;
 		position.X += x;
 		position.Y += y;
+		FVector2D nowposition = position;
 
-		float dis = distance(a, position);
+		float dis = distance(nowposition, preposition);
 		sum += dis;
+		UE_LOG(LogTemp, Warning, TEXT("Distance :  %.2f"), dis);
+
 		int32 b = createEvent();
 		if (b == 1) {
 			eventnum++;
@@ -72,6 +75,5 @@ int32 AMyActor::createEvent()
 {
 	return FMath::RandRange(0, 1);
 }
-
 
 
